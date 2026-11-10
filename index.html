@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bức Tranh Diệu Kỳ 🌸</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{overflow:hidden;font-family:Arial;background:#000}
+.scene{
+ width:100vw;height:100vh;position:relative;overflow:hidden;
+ background:linear-gradient(#020019,#151b49,#633a70);
+ animation:night 4s forwards;
+}
+@keyframes night{from{filter:brightness(0)}to{filter:brightness(1)}}
+
+.stars{
+ position:absolute;inset:0;
+ background-image:radial-gradient(white 1px,transparent 2px),
+ radial-gradient(#ffcafa 1px,transparent 2px);
+ background-size:65px 65px,100px 100px;
+ animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{to{opacity:.3}}
+
+.moon{
+ position:absolute;top:10%;right:15%;
+ width:75px;height:75px;border-radius:50%;
+ background:#fff3b0;box-shadow:0 0 40px #fff3b0;
+ animation:float 3s infinite alternate;
+}
+@keyframes float{to{transform:translateY(15px)}}
+
+.cloud{position:absolute;font-size:55px;left:-100px;top:25%;
+ animation:cloud 18s linear infinite}
+.cloud.two{top:40%;animation-delay:7s}
+@keyframes cloud{to{left:110%}}
+
+.hill{
+ position:absolute;bottom:5%;left:-15%;width:130%;height:40%;
+ background:#285d58;border-radius:50% 50% 0 0;
+}
+.hill2{
+ position:absolute;bottom:-20%;right:-20%;width:120%;height:50%;
+ background:#438b67;border-radius:50% 50% 0 0;
+}
+.grass{
+ position:absolute;bottom:0;width:100%;height:22%;
+ background:linear-gradient(#399a5b,#155137);
+}
+
+.flower{
+ position:absolute;bottom:10%;font-size:35px;
+ animation:sway 2s infinite alternate;
+}
+@keyframes sway{to{transform:rotate(15deg) scale(1.2)}}
+
+.butterfly{
+ position:absolute;left:-50px;top:60%;font-size:35px;
+ animation:flybutterfly 10s linear infinite;
+ z-index:4;
+}
+@keyframes flybutterfly{
+ 0%{left:-50px;top:70%}
+ 50%{top:30%}
+ 100%{left:110%;top:65%}
+}
+
+.color{
+ position:absolute;inset:0;
+ background:linear-gradient(120deg,#ff9ac7,#c6a2ff,#7be8ed,#fff1a5);
+ opacity:0;animation:color 4s 12s forwards;
+}
+@keyframes color{to{opacity:1}}
+
+.rainbow{
+ position:absolute;top:57%;left:50%;
+ width:300px;height:150px;
+ border:12px solid transparent;
+ border-top-color:#ff4f91;border-radius:50%;
+ transform:translateX(-50%);
+ opacity:0;animation:show 3s 15s forwards;
+}
+@keyframes show{to{opacity:1}}
+
+.character{
+ position:absolute;top:48%;left:50%;
+ transform:translate(-50%,-50%);
+ font-size:100px;z-index:5;
+ opacity:0;animation:appear 2s 15s forwards,dance 1s 17s infinite alternate;
+}
+@keyframes appear{to{opacity:1}}
+@keyframes dance{
+ from{translate:-15px 0;rotate:-10deg}
+ to{translate:15px -25px;rotate:10deg}
+}
+
+.message{
+ position:absolute;top:12%;width:100%;
+ text-align:center;color:white;
+ font-size:clamp(20px,5vw,36px);
+ text-shadow:0 0 15px #ff269c;
+ opacity:0;z-index:8;
+ animation:show 3s 18s forwards;
+}
+.message p{font-size:17px;margin-top:15px}
+
+.heart{
+ position:absolute;bottom:-40px;
+ font-size:25px;z-index:7;
+  animation:heart 7s linear infinite;
+}
+@keyframes heart{
+ to{transform:translateY(-120vh) rotate(360deg);opacity:0}
+}
+
+.bubble{
+ position:absolute;bottom:-50px;width:30px;height:30px;
+ border:2px solid white;border-radius:50%;
+ background:#ffffff55;
+ animation:bubble 8s linear infinite;
+}
+@keyframes bubble{to{transform:translateY(-120vh) translateX(70px)}}
+
+.firework{
+ position:absolute;font-size:35px;z-index:10;
+ animation:boom 1.5s forwards;
+}
+@keyframes boom{
+ from{transform:scale(0);opacity:0}
+ 50%{transform:scale(2);opacity:1}
+ to{transform:scale(.5);opacity:0}
+}
+
+.replay{
+ position:absolute;bottom:15px;left:50%;
+ transform:translateX(-50%);z-index:20;
+ padding:12px 24px;border:0;border-radius:30px;
+ background:#ff5da8;color:white;font-size:16px;
+ cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="scene" id="scene">
+ <div class="stars"></div>
+ <div class="moon"></div>
+
+ <div class="cloud">☁️</div>
+ <div class="cloud two">☁️</div>
+
+ <div class="hill"></div>
+ <div class="hill2"></div>
+ <div class="grass"></div>
+
+ <div class="color"></div>
+ <div class="rainbow"></div>
+
+ <div class="character" id="character">🐻</div>
+
+ <div class="message">
+  ✨ THẾ GIỚI DIỆU KỲ ✨
+  <p>🌸 Hãy luôn vui vẻ và tỏa sáng nhé! 🌸</p>
+ </div>
+
+ <div class="butterfly">🦋</div>
+</div>
+
+<button class="replay" onclick="location.reload()">↻ Xem lại</button>
+
+<script>
+// TẠO HOA
+const scene=document.getElementById("scene");
+const flowers=["🌸","🌷","🌻","🌺","🌼"];
+
+for(let i=0;i<24;i++){
+ let f=document.createElement("div");
+ f.className="flower";
+ f.textContent=flowers[i%flowers.length];
+ f.style.left=Math.random()*100+"%";
+ f.style.animationDelay=Math.random()*3+"s";
+ scene.appendChild(f);
+}
+
+// TRÁI TIM BAY
+for(let i=0;i<25;i++){
+ let h=document.createElement("div");
+ h.className="heart";
+ h.textContent=["💗","💖","💕","💜"][i%4];
+ h.style.left=Math.random()*100+"%";
+ h.style.animationDelay=Math.random()*7+"s";
+ scene.appendChild(h);
+}
+
+// BONG BÓNG
+for(let i=0;i<18;i++){
+ let b=document.createElement("div");
+ b.className="bubble";
+ b.style.left=Math.random()*100+"%";
+ b.style.animationDelay=Math.random()*8+"s";
+ scene.appendChild(b);
+}
+
+// NHÂN VẬT THAY ĐỔI
+const characters=["🐻","🐰","🐱","🐼","🐸","🐥","🦊"];
+let index=0;
+setInterval(()=>{
+ document.getElementById("character").textContent=
+ characters[index%characters.length];
+ index++;
+},2000);
+
+// PHÁO HOA
+setInterval(()=>{
+ let p=document.createElement("div");
+ p.className="firework";
+ p.textContent=["🎆","✨","🎉","💫"][Math.floor(Math.random()*4)];
+ p.style.left=Math.random()*90+"%";
+ p.style.top=Math.random()*75+"%";
+ scene.appendChild(p);
+ setTimeout(()=>p.remove(),1500);
+},1200);
+</script>
+
+</body>
+</html>
